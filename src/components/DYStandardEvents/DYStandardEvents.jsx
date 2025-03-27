@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
-import { triggerDYEvent } from "./../../utils/dy-utils"
+import { triggerDYEvent, standardEvents } from "./../../utils/dy-utils"
 
 const DYStandardEvents = () => {
-  const mapButtonTexts = {
-    'add-to-cart': 'Add to Cart',
-    'sync-cart-v1': 'Sync Cart',
-  };
   const [sku, setSKU] = useState('');
   const [price, setPrice] = useState('');
   const [cartList, setCartList] = useState([]);
   const [buttonText, setButtonText] = useState("Add To Cart");
-  const [eventSelected, setEventSelected] = useState('')
+  const [eventSelected, setEventSelected] = useState('addToCart')
   return (
     <Col style={{ display: "flex" }}>
       <Card style={{ backgroundColor: "#f2f2f2", margin: "0px 10px 0px 0px" }}>
@@ -41,13 +37,13 @@ const DYStandardEvents = () => {
             <Col sm="10">
               <Form.Select size="sm"
                 onChange={e => {
-                  const text = mapButtonTexts[e.target.value];
+                  const text = standardEvents[e.target.value].text;
                   setButtonText(text);
                   setEventSelected(e.target.value);
                 }}
               >
-                <option value="add-to-cart" text="Add To Cart">Add To Cart</option>
-                <option value="sync-cart-v1" text="Sync Cart">Sync Cart</option>
+                <option value='addToCart'>{ standardEvents.addToCart.text }</option>
+                <option value='syncCart'>{ standardEvents.syncCart.text }</option>
               </Form.Select>
             </Col>
             <Col sm="10">

@@ -2,9 +2,16 @@
 import CryptoJS from 'crypto-js';
 
 export const standardEvents = {
-  addToCart: 'add-to-cart-v1',
-  syncCart: 'sync-cart-v1'
-}
+  addToCart: {
+    type: 'add-to-cart-v1',
+    text: 'Add to Cart'
+  },
+  syncCart: {
+    type: 'sync-cart-v1',
+    text: 'Sync Cart'
+  }
+};
+
 function sha256(str) {
   let wordArray = CryptoJS.SHA256(str);
   let hashedStr = wordArray.toString(CryptoJS.enc.Hex);
@@ -72,9 +79,8 @@ export function optOut(user) {
   }
 }
 export function triggerDYEvent(dyType, { price, productId }, cart = null) {
-  console.log('triggerDYEvent')
   const updatedCart = buildUpdatedCart(cart);
-  return triggerEvent(standardEvents[dyType], price, productId, updatedCart);
+  return triggerEvent(standardEvents[dyType].type, price, productId, updatedCart);
 }
 
 
